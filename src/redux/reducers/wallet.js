@@ -1,23 +1,31 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-// const INITIAL_STATE = {
-//   user: {
-//     email: '',
-//   },
-// };
+import { RECEIVE_CURRENCIES,
+  REQUEST_CURRENCIES, REQUEST_CURRENCIES_FAILURE } from '../actions';
 
-// function wallet(state = INITIAL_STATE, action) {
-// //   switch (action.type) {
-// //   case addUser:
-// //     return {
-// //       ...state,
-// //       email: action.userName,
-// //     };
-// //   case deleteUser:
-// //     return state.filter((login) => login.userName !== action.value);
-// //   default:
-// //     return state;
-// //   }
-// }
+const INITIAL_STATE = {
+  currencies: [],
+};
 
-// export default wallet;
+function wallet(state = INITIAL_STATE, action) {
+  switch (action.type) {
+  case REQUEST_CURRENCIES:
+    return {
+      ...state,
+    };
+  case RECEIVE_CURRENCIES:
+    return {
+      ...state,
+      currencies: action.currencies,
+    };
+  case REQUEST_CURRENCIES_FAILURE:
+    return {
+      ...state,
+      error: action.error,
+    };
+  default:
+    return state;
+  }
+}
+
+export default wallet;
