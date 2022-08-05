@@ -36,7 +36,7 @@ export function fetchCurrencies() {
     dispatch(requestCurrencies());
     try {
       const response = await getCurrencies();
-      const filteredResponse = Object.keys(response)
+      const filteredResponse = response
         .filter((currencies) => currencies !== 'USDT');
       dispatch(receiveCurrencies(filteredResponse));
     } catch (error) {
