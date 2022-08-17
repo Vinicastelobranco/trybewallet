@@ -1,8 +1,6 @@
 import getCurrencies from '../../services/api';
-// import totalExpenses from '../../services/sum';
 import exchangeOperations from '../../tests/helpers/exchangeOperations';
 
-// Coloque aqui suas actions
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
