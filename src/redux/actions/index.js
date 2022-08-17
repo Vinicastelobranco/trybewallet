@@ -1,5 +1,6 @@
 import getCurrencies from '../../services/api';
-import totalExpenses from '../../services/sum';
+// import totalExpenses from '../../services/sum';
+import exchangeOperations from '../../tests/helpers/exchangeOperations';
 
 // Coloque aqui suas actions
 export const ADD_USER = 'ADD_USER';
@@ -48,11 +49,12 @@ export function fetchCurrencies() {
 }
 
 export const saveExpenseAction = (expense, { totalValue }) => {
-  console.log(totalExpenses(expense));
-  const sumValues = Math.round((totalExpenses(expense) + totalValue) * 100) / 100;
+  const { convertedValue } = exchangeOperations(expense);
+  console.log(convertedValue);
+  const sumValues = Math.round((convertedValue + totalValue) * 100) / 100;
   return {
     type: SAVE_EXPENSES,
-    payload1: expense,
+    payload1: { ...expense },
     payload2: sumValues,
   };
 };
@@ -62,13 +64,10 @@ export function expenseWithCurrencies(expense) {
     try {
       dispatch(requestCurrencies());
       const response = await getCurrencies();
-      // const data = await response.json();
-      // console.log(data);
       const newExpense = {
         ...expense,
         exchangeRates: response,
       };
-      // console.log(getState().wallet);
       dispatch(saveExpenseAction(newExpense, getState().wallet));
     } catch (error) {
       dispatch(requestCurrenciesFailure(error));

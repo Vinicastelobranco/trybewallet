@@ -4,7 +4,7 @@ import { RECEIVE_CURRENCIES,
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  totalValue: 0,
+  totalValue: 0.00,
 };
 
 function wallet(state = INITIAL_STATE, action) {

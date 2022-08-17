@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import Expense from './Expense';
+import exchangeOperations from '../tests/helpers/exchangeOperations';
 
 class Table extends Component {
   render() {
+    const { getExpenses } = this.props;
     return (
       <section>
-        <table className="wallet-table">
+        <table>
           <thead>
             <tr>
               <th>Valor</th>
@@ -18,11 +23,25 @@ class Table extends Component {
               <th>Editar/Excluir</th>
             </tr>
           </thead>
+          <tbody>
+            {
+              getExpenses.map((data) => (
+                <Expense data={ exchangeOperations(data) } key={ data.id } />
+              ))
+            }
+          </tbody>
         </table>
       </section>
     );
   }
 }
-// ok
 
-export default Table;
+const mapStateToProps = (store) => ({
+  getExpenses: store.wallet.expenses,
+});
+
+Table.propTypes = {
+  getExpenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+};
+
+export default connect(mapStateToProps)(Table);
