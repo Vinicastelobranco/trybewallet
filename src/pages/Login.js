@@ -29,7 +29,7 @@ class Login extends React.Component {
   }
 
   handleChange = (event) => {
-    console.log(event.target);
+    // console.log(event.target);
     const { name, value } = event.target;
     this.setState({ [name]: value });
     this.setState(() => ({ [name]: value }), this.handleButton);
@@ -60,7 +60,7 @@ class Login extends React.Component {
         <label htmlFor="senha">
           Senha:
           <input
-            type="text"
+            type="password"
             name="senha"
             data-testid="password-input"
             value={ senha }
