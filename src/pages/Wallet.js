@@ -23,5 +23,6 @@ class Wallet extends React.Component {
       </main>);
   }
 }
+// ok
 
 export default Wallet;

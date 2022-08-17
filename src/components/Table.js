@@ -23,5 +23,6 @@ class Table extends Component {
     );
   }
 }
+// ok
 
 export default Table;
