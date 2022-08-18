@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Expense from './Expense';
-import exchangeOperations from '../tests/helpers/exchangeOperations';
+import { addExpense } from '../tests/helpers/exchangeOperations';
 
 class Table extends Component {
   render() {
@@ -26,7 +26,7 @@ class Table extends Component {
           <tbody>
             {
               getExpenses.map((data) => (
-                <Expense data={ exchangeOperations(data) } key={ data.id } />
+                <Expense data={ addExpense(data) } key={ data.id } />
               ))
             }
           </tbody>

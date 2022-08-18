@@ -1,5 +1,5 @@
 import getCurrencies from '../../services/api';
-import exchangeOperations from '../../tests/helpers/exchangeOperations';
+import { addExpense, removeExpense } from '../../tests/helpers/exchangeOperations';
 
 export const ADD_USER = 'ADD_USER';
 export const DELETE_USER = 'DELETE_USER';
@@ -7,6 +7,7 @@ export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 export const REQUEST_CURRENCIES_FAILURE = 'REQUEST_CURRENCIES_FAILURE';
 export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+export const DELETE_EXPENSES = 'DELETE_EXPENSES';
 
 export const addUser = (userName) => ({
   type: ADD_USER,
@@ -47,7 +48,7 @@ export function fetchCurrencies() {
 }
 
 export const saveExpenseAction = (expense, { totalValue }) => {
-  const { convertedValue } = exchangeOperations(expense);
+  const { convertedValue } = addExpense(expense);
   console.log(convertedValue);
   const sumValues = Math.round((convertedValue + totalValue) * 100) / 100;
   return {
@@ -70,5 +71,20 @@ export function expenseWithCurrencies(expense) {
     } catch (error) {
       dispatch(requestCurrenciesFailure(error));
     }
+  };
+}
+const returnExpenseAction = (getId, getState) => {
+  const { updateSum, updateExpenses } = removeExpense(getId, getState().wallet);
+
+  return {
+    type: DELETE_EXPENSES,
+    payload1: updateExpenses,
+    payload2: updateSum,
+  };
+};
+
+export function deleteExpenseAction(getId) {
+  return (dispatch, getState) => {
+    dispatch(returnExpenseAction(getId, getState));
   };
 }
